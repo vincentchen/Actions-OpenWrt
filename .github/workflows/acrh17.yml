@@ -5,12 +5,12 @@
 #   Blog: https://p3terx.com
 #=================================================
 
-name: Build OpenWrt
+name: Build OpenWrt acrh17
 
 on: 
   push:
     tags: 
-      - "r619ac_*"
+      - "acrh17_*"
 #  schedule:
 #    - cron: 0 8 * * 5
 #  watch:
@@ -64,7 +64,7 @@ jobs:
         ln -sf packages openwrt/package/diy-packages
         ln -sf files openwrt/files
         chmod +x diy.sh
-        [ -e "r619ac.config" ] && cp r619ac.config openwrt/.config
+        [ -e "acrh17.config" ] && cp acrh17.config openwrt/.config
         cd openwrt
         ../diy.sh
         make defconfig
@@ -84,5 +84,5 @@ jobs:
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: OpenWrt-r619ac
-        path: openwrt/bin/targets/ipq40xx/generic/openwrt-ipq40xx-p2w_r619ac-128m-squashfs-nand-sysupgrade.bin
+        name: OpenWrt-acrh17
+        path: openwrt/bin/targets/ipq40xx/generic/openwrt-ipq40xx-asus_rt-acrh17-squashfs-sysupgrade.bin
