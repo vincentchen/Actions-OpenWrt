@@ -18,7 +18,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout
@@ -81,8 +81,14 @@ jobs:
         echo -e "$(nproc) thread build."
         make -j$(nproc) V=s
 
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
-      with:
-        name: k2p
-        path: openwrt/bin/targets/ramips/mt7621/openwrt-ramips-mt7621-k2p-squashfs-sysupgrade.bin
+    - name: Assemble artifact
+        run: |
+          rm -rf ./artifact/
+          mkdir -p ./artifact/
+          find ./bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./artifact/
+          find ./bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./artifact/
+    - name: Upload artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: OpenWrt K2P firmware
+          path: ./artifact/
