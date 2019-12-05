@@ -91,5 +91,5 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@master
       with:
-        name: OpenWrt K2 firmware
+        name: OpenWrt K3 firmware
         path: ./artifact/
