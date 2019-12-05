@@ -81,8 +81,15 @@ jobs:
         echo -e "$(nproc) thread build."
         make -j$(nproc) V=s
 
-    - name : Upload artifact
+    - name: Assemble artifact
+      run: |
+        rm -rf ./artifact/
+        mkdir -p ./artifact/
+        find ./bin/targets/ -name "*combined*img*" | xargs -i mv -f {} ./artifact/
+        find ./bin/targets/ -name "*sysupgrade*bin*" | xargs -i mv -f {} ./artifact/
+      
+    - name: Upload artifact
       uses: actions/upload-artifact@master
-      with:
-        name: OpenWrt-acrh17
-        path: openwrt/bin/targets/ipq40xx/generic/openwrt-ipq40xx-asus_rt-acrh17-squashfs-sysupgrade.bin
+        with:
+          name: OpenWrt Acrh17
+          path: ./artifact/ 
