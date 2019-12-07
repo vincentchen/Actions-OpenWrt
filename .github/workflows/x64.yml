@@ -67,7 +67,7 @@ jobs:
         [ -e "x64.config" ] && cp x64.config openwrt/.config
         cd openwrt
         ../diy.sh
-        cp Makefile feeds/packages/libs/libevhtp/
+        cp ../libevhtp.Makefile feeds/packages/libs/libevhtp/Makefile
         rm feeds/packages/libs/libevhtp/patches/010-strcmp-endianness-fix.patch
         make defconfig
 
@@ -81,7 +81,6 @@ jobs:
       run: |
         cd openwrt
         echo -e "$(nproc) thread build."
-        make package/libs/libevent2/compile V=s
         make -j$(nproc) V=s
         
     - name: Assemble artifact
