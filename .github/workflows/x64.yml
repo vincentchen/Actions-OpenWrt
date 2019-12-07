@@ -81,6 +81,7 @@ jobs:
       run: |
         cd openwrt
         echo -e "$(nproc) thread build."
+        make package/libs/libevent2/compile V=s
         make -j$(nproc) V=s
         
     - name: Assemble artifact
